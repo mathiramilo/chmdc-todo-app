@@ -6,15 +6,7 @@ import {
   View
 } from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker'
-import { useDropdown } from '../../hooks'
 import { styles } from './styles'
-
-const dropdownItems = [
-  { label: 'Critical', value: 'critical' },
-  { label: 'High', value: 'high' },
-  { label: 'Medium', value: 'medium' },
-  { label: 'Low', value: 'low' }
-]
 
 const AddTaskModal = ({
   open,

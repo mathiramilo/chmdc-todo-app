@@ -1,14 +1,16 @@
 import { useState, useRef } from 'react'
-import {
-  TouchableWithoutFeedback,
-  FlatList,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native'
+import { FlatList, StyleSheet, Text, View } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import uuid from 'react-native-uuid'
-import { TaskCard, AddTaskModal } from './components'
+import { TaskCard, AddTaskModal, AppBar, Header } from './components'
+import { useDropdown } from './hooks'
+
+const dropdownItems = [
+  { label: 'Critical', value: 'critical' },
+  { label: 'High', value: 'high' },
+  { label: 'Medium', value: 'medium' },
+  { label: 'Low', value: 'low' }
+]
 
 const App = () => {
   const [tasks, setTasks] = useState([])
@@ -23,14 +25,14 @@ const App = () => {
 
   const [modalVisible, setModalVisible] = useState(false)
 
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const [dropdownValue, setDropdownValue] = useState(null)
-  const [items, setItems] = useState([
-    { label: 'Critical', value: 'critical' },
-    { label: 'High', value: 'high' },
-    { label: 'Medium', value: 'medium' },
-    { label: 'Low', value: 'low' }
-  ])
+  const {
+    dropdownOpen,
+    setIsDropdownOpen,
+    dropdownValue,
+    setDropdownValue,
+    items,
+    setItems
+  } = useDropdown(dropdownItems)
 
   const handleChangeTitle = value => setTask({ ...task, title: value })
   const handleChangeDesc = value => setTask({ ...task, description: value })
@@ -104,12 +106,10 @@ const App = () => {
     <>
       <StatusBar style="dark" />
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.headerHeading}>CHMDC Task List</Text>
-          <Text style={styles.headerSubheading}>
-            Add, delete or mark as done a task
-          </Text>
-        </View>
+        <Header
+          title="CHMDC Task List"
+          subtitle="Add, delete or mark as done a task"
+        />
 
         <View style={styles.listContainer}>
           {tasks.length === 0 ? (
@@ -128,26 +128,18 @@ const App = () => {
           )}
         </View>
 
-        <View style={styles.appBar}>
-          <TouchableWithoutFeedback
-            onPress={() => setModalVisible(!modalVisible)}
-          >
-            <View style={styles.appBarButton}>
-              <Text style={styles.buttonText}>Add</Text>
-            </View>
-          </TouchableWithoutFeedback>
-        </View>
+        <AppBar modalVisible={modalVisible} setModalVisible={setModalVisible} />
 
         <AddTaskModal
           open={modalVisible}
           handleChangeTitle={handleChangeTitle}
           handleChangeDesc={handleChangeDesc}
           task={task}
-          dropdownOpen={isDropdownOpen}
-          dropdownValue={dropdownValue}
-          items={items}
+          dropdownOpen={dropdownOpen}
           setIsDropdownOpen={setIsDropdownOpen}
+          dropdownValue={dropdownValue}
           setDropdownValue={setDropdownValue}
+          items={items}
           setItems={setItems}
           error={error}
           handleCancel={handleCancel}
@@ -165,20 +157,6 @@ const styles = StyleSheet.create({
     paddingTop: 48,
     paddingHorizontal: 24
   },
-  header: {
-    marginBottom: 42
-  },
-  headerHeading: {
-    color: '#323031',
-    fontSize: 32,
-    fontWeight: '600',
-    marginBottom: 12
-  },
-  headerSubheading: {
-    color: '#323031',
-    fontSize: 16,
-    fontWeight: '200'
-  },
   listContainer: {
     flex: 1
   },
@@ -194,41 +172,6 @@ const styles = StyleSheet.create({
     color: '#323031',
     fontSize: 16,
     fontWeight: '500'
-  },
-  appBar: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 48,
-    backgroundColor: '#FAFFFD',
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 38,
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
-    shadowOffset: {
-      width: 0,
-      height: 10
-    },
-    shadowColor: '#323031',
-    shadowOpacity: 0.25,
-    shadowRadius: 24,
-    elevation: 5
-  },
-  appBarButton: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FA824C',
-    borderRadius: 12,
-    padding: 12,
-    height: 44
-  },
-  buttonText: {
-    color: '#FAFFFD',
-    textTransform: 'uppercase',
-    fontWeight: '700'
   }
 })
 
