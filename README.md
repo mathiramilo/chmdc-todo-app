@@ -1,3 +1,3 @@
-# Coderhouse Mobile Development Challenges
+# React Native Todo App
 
-This repository contains all challenges of the course
+React Native Todo App for the Challenges of Coderhouse Mobile Development Course.
