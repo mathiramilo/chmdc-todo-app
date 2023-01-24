@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { colors } from '../../theme'
+import { colors, fonts } from '../../theme'
 
 export const styles = StyleSheet.create({
   header: {
@@ -7,13 +7,13 @@ export const styles = StyleSheet.create({
   },
   headerHeading: {
     color: colors.text,
-    fontSize: 32,
-    fontWeight: '600',
+    fontFamily: fonts.semiBold,
+    fontSize: fonts.lg,
     marginBottom: 12
   },
   headerSubheading: {
     color: colors.text,
-    fontSize: 16,
-    fontWeight: '200'
+    fontFamily: fonts.extraLight,
+    fontSize: fonts.sm
   }
 })

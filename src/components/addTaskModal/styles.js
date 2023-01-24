@@ -1,24 +1,11 @@
 import { StyleSheet } from 'react-native'
-import { colors } from '../../theme'
+import { colors, fonts } from '../../theme'
 
 export const styles = StyleSheet.create({
-  modalContainer: {
-    flex: 1,
-    backgroundColor: colors.modalBackground,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  modal: {
-    backgroundColor: colors.backgroundLight,
-    width: '90%',
-    padding: 24,
-    borderRadius: 16,
-    elevation: 5
-  },
   modalHeading: {
     color: colors.text,
-    fontSize: 24,
-    fontWeight: '600',
+    fontFamily: fonts.semiBold,
+    fontSize: fonts.md,
     marginBottom: 42
   },
   modalForm: {},
@@ -27,19 +14,38 @@ export const styles = StyleSheet.create({
   },
   modalFormLabel: {
     color: colors.text,
-    fontSize: 14,
-    fontWeight: '500',
+    fontFamily: fonts.medium,
+    fontSize: fonts.sm,
     marginBottom: 12
   },
   modalFormInput: {
     backgroundColor: colors.backgroundLight,
     color: colors.text,
-    fontSize: 16,
-    fontWeight: '300',
+    fontFamily: fonts.regular,
+    fontSize: fonts.sm,
     padding: 12,
     borderRadius: 12,
     borderWidth: 1,
     borderColor: colors.textLight
+  },
+  dropdownText: {
+    color: colors.text,
+    fontFamily: fonts.regular,
+    fontSize: fonts.sm
+  },
+  dropdownLabel: {
+    color: colors.text,
+    fontFamily: fonts.regular,
+    fontSize: fonts.sm
+  },
+  dropdownContainer: {
+    backgroundColor: colors.backgroundLight,
+    borderColor: colors.textLight
+  },
+  dropdownPlaceholder: {
+    color: colors.textLight,
+    fontFamily: fonts.regular,
+    fontSize: fonts.sm
   },
   modalFormError: {
     marginBottom: 24,
@@ -50,8 +56,8 @@ export const styles = StyleSheet.create({
   },
   modalFormErrorText: {
     color: colors.white,
-    fontSize: 14,
-    fontWeight: '500'
+    fontFamily: fonts.semiBold,
+    fontSize: fonts.xs
   },
   modalFormActions: {
     flexDirection: 'row',
@@ -76,8 +82,9 @@ export const styles = StyleSheet.create({
   },
   modalFormActionText: {
     color: colors.white,
+    fontFamily: fonts.bold,
+    fontSize: fonts.xs,
     textTransform: 'uppercase',
-    fontWeight: '500',
     textAlign: 'center'
   },
   modalFormActionTextSecondary: {

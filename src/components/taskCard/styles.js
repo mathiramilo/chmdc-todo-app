@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { colors } from '../../theme'
+import { colors, fonts } from '../../theme'
 
 export const styles = StyleSheet.create({
   itemCard: {
@@ -20,13 +20,13 @@ export const styles = StyleSheet.create({
   },
   cardTitle: {
     color: colors.text,
-    fontSize: 20,
-    fontWeight: '400'
+    fontFamily: fonts.semiBold,
+    fontSize: fonts.md
   },
   cardPriority: {
     color: colors.text,
-    fontSize: 14,
-    fontWeight: '600',
+    fontFamily: fonts.bold,
+    fontSize: fonts.xs,
     textTransform: 'uppercase'
   },
   critical: {
@@ -43,8 +43,8 @@ export const styles = StyleSheet.create({
   },
   cardDescription: {
     color: colors.text,
-    fontSize: 14,
-    fontWeight: '300',
+    fontFamily: fonts.light,
+    fontSize: fonts.xs,
     marginBottom: 28
   },
   cardFooter: {
@@ -58,14 +58,14 @@ export const styles = StyleSheet.create({
   },
   taskDone: {
     color: colors.done,
-    fontSize: 14,
-    fontWeight: '600',
+    fontFamily: fonts.semiBold,
+    fontSize: fonts.xs,
     marginLeft: 8
   },
   taskPending: {
     color: colors.pending,
-    fontSize: 14,
-    fontWeight: '600',
+    fontFamily: fonts.semiBold,
+    fontSize: fonts.xs,
     marginLeft: 8
   },
   cardActions: {

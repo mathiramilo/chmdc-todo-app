@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { colors } from '../../theme'
+import { colors, fonts } from '../../theme'
 
 export const styles = StyleSheet.create({
   listContainer: {
@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
   },
   noContentText: {
     color: colors.text,
-    fontSize: 16,
-    fontWeight: '500'
+    fontFamily: fonts.medium,
+    fontSize: fonts.sm
   }
 })

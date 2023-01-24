@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { colors } from '../../theme'
+import { colors, fonts } from '../../theme'
 
 export const styles = StyleSheet.create({
   buttonContainer: {
@@ -17,6 +17,7 @@ export const styles = StyleSheet.create({
   },
   buttonText: {
     color: colors.white,
-    fontSize: 30
+    fontFamily: fonts.light,
+    fontSize: fonts.xl
   }
 })

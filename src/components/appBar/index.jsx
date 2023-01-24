@@ -24,6 +24,16 @@ const AppBar = ({ screen, setScreen }) => {
           <Text style={[styles.buttonText, screen === 'reminders' && { color: colors.primary }]}>Reminders</Text>
         </View>
       </TouchableWithoutFeedback>
+
+      <TouchableWithoutFeedback onPress={() => setScreen('settings')}>
+        <View style={styles.appBarButton}>
+          <Image
+            style={[styles.buttonIcon, screen === 'settings' && { tintColor: colors.primary }]}
+            source={require('../../assets/settings.png')}
+          />
+          <Text style={[styles.buttonText, screen === 'settings' && { color: colors.primary }]}>Settings</Text>
+        </View>
+      </TouchableWithoutFeedback>
     </View>
   )
 }

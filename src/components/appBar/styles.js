@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { colors } from '../../theme'
+import { colors, fonts } from '../../theme'
 
 export const styles = StyleSheet.create({
   appBar: {
@@ -7,12 +7,12 @@ export const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    height: 48,
+    height: 42,
     backgroundColor: colors.backgroundLight,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    padding: 38,
+    padding: 34,
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
     shadowOffset: {
@@ -28,18 +28,17 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 12,
-    height: 44
+    height: 42
   },
   buttonIcon: {
     tintColor: colors.textLight,
-    width: 36,
-    height: 36,
+    width: 32,
+    height: 32,
     marginBottom: 4
   },
   buttonText: {
     color: colors.textLight,
-    textTransform: 'uppercase',
-    fontWeight: '400',
-    fontSize: 12
+    fontFamily: fonts.medium,
+    fontSize: fonts.xxs
   }
 })
