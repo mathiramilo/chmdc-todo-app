@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native'
+import { colors } from '../../theme'
 
 export const styles = StyleSheet.create({
   itemCard: {
-    backgroundColor: '#f7f7f7',
+    backgroundColor: colors.cardBg,
     borderWidth: 1,
-    borderColor: '#eeeeee',
+    borderColor: colors.cardBorder,
     borderRadius: 12,
     paddingVertical: 24,
     paddingHorizontal: 20,
@@ -18,30 +19,30 @@ export const styles = StyleSheet.create({
     marginBottom: 16
   },
   cardTitle: {
-    color: '#323031',
+    color: colors.text,
     fontSize: 20,
     fontWeight: '400'
   },
   cardPriority: {
-    color: '#323031',
+    color: colors.text,
     fontSize: 14,
     fontWeight: '600',
     textTransform: 'uppercase'
   },
   critical: {
-    color: '#e64545'
+    color: colors.critical
   },
   high: {
-    color: '#FA824C'
+    color: colors.high
   },
   medium: {
-    color: '#F7B731'
+    color: colors.medium
   },
   low: {
-    color: '#4CD97B'
+    color: colors.low
   },
   cardDescription: {
-    color: '#323031',
+    color: colors.text,
     fontSize: 14,
     fontWeight: '300',
     marginBottom: 28
@@ -56,13 +57,13 @@ export const styles = StyleSheet.create({
     alignItems: 'center'
   },
   taskDone: {
-    color: '#2192d8',
+    color: colors.done,
     fontSize: 14,
     fontWeight: '600',
     marginLeft: 8
   },
   taskPending: {
-    color: '#e620ae',
+    color: colors.pending,
     fontSize: 14,
     fontWeight: '600',
     marginLeft: 8

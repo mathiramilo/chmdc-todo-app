@@ -2,11 +2,14 @@ import { StyleSheet } from 'react-native'
 import { colors } from '../../theme'
 
 export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.backgroundLight,
+    paddingTop: 48,
+    paddingHorizontal: 24
+  },
   listContainer: {
     flex: 1
-  },
-  itemList: {
-    marginBottom: 86
   },
   noContentContainer: {
     flex: 0.8,

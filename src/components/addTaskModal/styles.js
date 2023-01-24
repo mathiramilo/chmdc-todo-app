@@ -1,21 +1,22 @@
 import { StyleSheet } from 'react-native'
+import { colors } from '../../theme'
 
 export const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
-    backgroundColor: 'rgba(44, 42, 43, 0.437)',
+    backgroundColor: colors.modalBackground,
     alignItems: 'center',
     justifyContent: 'center'
   },
   modal: {
-    backgroundColor: '#FAFFFD',
+    backgroundColor: colors.backgroundLight,
     width: '90%',
     padding: 24,
     borderRadius: 16,
     elevation: 5
   },
   modalHeading: {
-    color: '#323031',
+    color: colors.text,
     fontSize: 24,
     fontWeight: '600',
     marginBottom: 42
@@ -25,30 +26,30 @@ export const styles = StyleSheet.create({
     marginBottom: 24
   },
   modalFormLabel: {
-    color: '#323031',
+    color: colors.text,
     fontSize: 14,
     fontWeight: '500',
     marginBottom: 12
   },
   modalFormInput: {
-    backgroundColor: '#FAFFFD',
-    color: '#323031',
+    backgroundColor: colors.backgroundLight,
+    color: colors.text,
     fontSize: 16,
     fontWeight: '300',
     padding: 12,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#acacac'
+    borderColor: colors.textLight
   },
   modalFormError: {
     marginBottom: 24,
-    backgroundColor: '#e1564f',
+    backgroundColor: colors.red,
     padding: 12,
     borderRadius: 12,
     zIndex: -1
   },
   modalFormErrorText: {
-    color: '#FAFFFD',
+    color: colors.white,
     fontSize: 14,
     fontWeight: '500'
   },
@@ -66,17 +67,20 @@ export const styles = StyleSheet.create({
     marginLeft: 0
   },
   primaryButton: {
-    backgroundColor: '#FA824C'
+    backgroundColor: colors.primary
   },
   secondaryButton: {
-    backgroundColor: '#FAFFFD',
+    backgroundColor: 'transparent',
     borderWidth: 1,
-    borderColor: '#FA824C'
+    borderColor: colors.primary
   },
   modalFormActionText: {
-    color: '#FAFFFD',
+    color: colors.white,
     textTransform: 'uppercase',
     fontWeight: '500',
     textAlign: 'center'
+  },
+  modalFormActionTextSecondary: {
+    color: colors.primary
   }
 })

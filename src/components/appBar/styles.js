@@ -1,15 +1,17 @@
 import { StyleSheet } from 'react-native'
+import { colors } from '../../theme'
 
 export const styles = StyleSheet.create({
   appBar: {
-    position: 'absolute',
+    position: 'fixed',
     bottom: 0,
     left: 0,
     right: 0,
     height: 48,
-    backgroundColor: '#FAFFFD',
+    backgroundColor: colors.backgroundLight,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-evenly',
     padding: 38,
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
@@ -17,23 +19,27 @@ export const styles = StyleSheet.create({
       width: 0,
       height: 10
     },
-    shadowColor: '#323031',
+    shadowColor: colors.shadow,
     shadowOpacity: 0.25,
     shadowRadius: 24,
     elevation: 5
   },
   appBarButton: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FA824C',
-    borderRadius: 12,
     padding: 12,
     height: 44
   },
+  buttonIcon: {
+    tintColor: colors.textLight,
+    width: 36,
+    height: 36,
+    marginBottom: 4
+  },
   buttonText: {
-    color: '#FAFFFD',
+    color: colors.textLight,
     textTransform: 'uppercase',
-    fontWeight: '700'
+    fontWeight: '400',
+    fontSize: 12
   }
 })

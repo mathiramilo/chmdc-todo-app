@@ -1,5 +1,6 @@
 {
-  "name": "ch-mobile-challenges",
+  "name": "chmdc-todo-app",
+  "description": "React Native Todo App for the Challenges of Coderhouse Mobile Development Course",
   "version": "1.0.0",
   "scripts": {
     "start": "expo start",
