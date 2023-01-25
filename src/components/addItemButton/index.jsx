@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, TouchableWithoutFeedback } from 'react-native'
 import { styles } from './styles'
 
-const AddTaskButton = ({ modalVisible, setModalVisible }) => {
+const AddItemButton = ({ modalVisible, setModalVisible }) => {
   return (
     <View style={styles.buttonContainer}>
       <TouchableWithoutFeedback onPress={() => setModalVisible(!modalVisible)}>
@@ -14,4 +14,4 @@ const AddTaskButton = ({ modalVisible, setModalVisible }) => {
   )
 }
 
-export default AddTaskButton
+export default AddItemButton

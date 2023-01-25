@@ -2,7 +2,7 @@ import React from 'react'
 import { Image, TouchableWithoutFeedback, Text, View } from 'react-native'
 import { styles } from './styles'
 
-const TaskCard = ({ item, handleCheck, handleEdit, handleDelete }) => {
+const TaskCard = ({ item, triggerEditTask, handleCheck, handleDelete }) => {
   return (
     <View style={styles.itemCard}>
       <View style={styles.cardHeader}>
@@ -31,7 +31,7 @@ const TaskCard = ({ item, handleCheck, handleEdit, handleDelete }) => {
               )}
             </View>
           </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={() => handleEdit(item.id)}>
+          <TouchableWithoutFeedback onPress={() => triggerEditTask(item)}>
             <View style={styles.cardActionButton}>
               <Image style={styles.cardActionIcon} source={require('../../assets/edit.png')} />
             </View>

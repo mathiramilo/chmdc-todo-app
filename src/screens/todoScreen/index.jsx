@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
-import { View, Text, FlatList } from 'react-native'
+import { View } from 'react-native'
 import uuid from 'react-native-uuid'
-import { TaskCard, AddTaskModal, Header, AddTaskButton } from '../../components'
+import { AddTaskModal, Header, AddItemButton, TasksList, EditTaskModal } from '../../components'
 import { useDropdown } from '../../hooks'
 import { styles } from './styles'
 
@@ -21,17 +21,25 @@ const TodoScreen = () => {
     priority: '',
     done: false
   })
+  const [taskToEdit, setTaskToEdit] = useState(null)
   const [error, setError] = useState(null)
 
-  const [modalVisible, setModalVisible] = useState(false)
+  const triggerEditTask = task => {
+    setTaskToEdit(task)
+    setEditModalVisible(true)
+  }
+
+  const [addModalVisible, setAddModalVisible] = useState(false)
+  const [editModalVisible, setEditModalVisible] = useState(false)
 
   const { dropdownOpen, setIsDropdownOpen, dropdownValue, setDropdownValue, items, setItems } =
     useDropdown(dropdownItems)
 
   const handleChangeTitle = value => setTask({ ...task, title: value })
   const handleChangeDesc = value => setTask({ ...task, description: value })
-  const handleCancel = () => {
-    setModalVisible(!modalVisible)
+
+  const handleCancelAdd = () => {
+    setAddModalVisible(false)
     setTask({
       id: '',
       title: '',
@@ -41,6 +49,11 @@ const TodoScreen = () => {
     })
     setDropdownValue(null)
   }
+  const handleCancelEdit = () => {
+    setEditModalVisible(false)
+    setTaskToEdit(null)
+  }
+
   const handleAddTask = () => {
     if (task.title === '' || task.description === '' || dropdownValue === null) {
       setError('Please fill all fields')
@@ -51,7 +64,7 @@ const TodoScreen = () => {
     }
 
     setTasks([...tasks, { ...task, priority: dropdownValue, id: uuid.v4() }])
-    setModalVisible(!modalVisible)
+    setAddModalVisible(false)
     setTask({
       id: '',
       title: '',
@@ -62,8 +75,9 @@ const TodoScreen = () => {
     setDropdownValue(null)
     setError(null)
 
-    if (tasks.length > 1) flatList.current.scrollToEnd()
+    if (tasks.length > 1) flatListRef.current.scrollToEnd()
   }
+
   const handleCheck = id => {
     const newTasks = tasks.map(task => {
       if (task.id === id) {
@@ -73,45 +87,42 @@ const TodoScreen = () => {
     })
     setTasks(newTasks)
   }
-  const handleEdit = id => {
-    console.warn('Not implemented yet')
+  const handleEdit = (id, data) => {
+    const newTasks = tasks.map(task => {
+      if (task.id === id) {
+        task.title = data.title
+        task.description = data.description
+        task.priority = data.priority
+      }
+      return task
+    })
+    setTasks(newTasks)
+    setEditModalVisible(false)
   }
   const handleDelete = id => {
     const newTasks = tasks.filter(task => task.id !== id)
     setTasks(newTasks)
   }
 
-  const renderItem = ({ item }) => (
-    <TaskCard item={item} handleCheck={handleCheck} handleEdit={handleEdit} handleDelete={handleDelete} />
-  )
-
-  const flatList = useRef()
+  const flatListRef = useRef()
 
   return (
     <>
       <View style={styles.container}>
-        <Header title="CHMDC Task List" subtitle="Add, delete or mark as done a task" />
+        <Header title="Tasks List" subtitle="Add, delete or mark as done a task" />
 
-        <View style={styles.listContainer}>
-          {tasks.length === 0 ? (
-            <View style={styles.noContentContainer}>
-              <Text style={styles.noContentText}>No tasks</Text>
-            </View>
-          ) : (
-            <FlatList
-              ref={flatList}
-              data={tasks}
-              renderItem={renderItem}
-              keyExtractor={item => item.id}
-              showsVerticalScrollIndicator={false}
-            />
-          )}
-        </View>
+        <TasksList
+          tasks={tasks}
+          flatListRef={flatListRef}
+          triggerEditTask={triggerEditTask}
+          handleCheck={handleCheck}
+          handleDelete={handleDelete}
+        />
 
-        <AddTaskButton modalVisible={modalVisible} setModalVisible={setModalVisible} />
+        <AddItemButton modalVisible={addModalVisible} setModalVisible={setAddModalVisible} />
 
         <AddTaskModal
-          open={modalVisible}
+          open={addModalVisible}
           handleChangeTitle={handleChangeTitle}
           handleChangeDesc={handleChangeDesc}
           task={task}
@@ -122,8 +133,15 @@ const TodoScreen = () => {
           items={items}
           setItems={setItems}
           error={error}
-          handleCancel={handleCancel}
+          handleCancel={handleCancelAdd}
           handleAddTask={handleAddTask}
+        />
+
+        <EditTaskModal
+          open={editModalVisible}
+          task={taskToEdit}
+          handleCancel={handleCancelEdit}
+          handleEdit={handleEdit}
         />
       </View>
     </>
