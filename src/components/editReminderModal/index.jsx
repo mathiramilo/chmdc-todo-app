@@ -1,33 +1,49 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, TouchableWithoutFeedback, TextInput } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import CustomModal from '../customModal'
 import { styles } from './styles'
+import { useDateTimePicker } from '../../hooks'
 
-const AddReminderModal = ({
-  open,
-  error,
-  reminder,
-  time,
-  handleChangeTitle,
-  handleChangeDesc,
-  handleChangeTime,
-  handleCancel,
-  handleAddReminder
-}) => {
+const EditReminderModal = ({ open, reminder, handleCancel, handleEdit }) => {
+  const [newReminder, setNewReminder] = useState(reminder)
+  const [error, setError] = useState('')
+
+  const { time, setTime, handleChangeTime } = useDateTimePicker()
+
+  const handleChangeTitle = value => setNewReminder({ ...newReminder, title: value })
+  const handleChangeDesc = value => setNewReminder({ ...newReminder, description: value })
+
+  useEffect(() => {
+    setNewReminder(reminder)
+    reminder?.date ? setTime(new Date(reminder.date)) : setTime(new Date())
+  }, [reminder])
+
+  const handleEditReminder = () => {
+    if (newReminder?.title === '' || newReminder?.description === '') {
+      setError('Please fill all fields')
+      setTimeout(() => {
+        setError(null)
+      }, 3000)
+      return
+    }
+
+    handleEdit(newReminder.id, { ...newReminder, time })
+  }
+
   return (
     <CustomModal open={open}>
-      <Text style={styles.modalHeading}>Add Reminder</Text>
+      <Text style={styles.modalHeading}>Edit Reminder</Text>
 
       <View style={styles.modalForm}>
         <View style={styles.modalFormGroup}>
           <Text style={styles.modalFormLabel}>Title</Text>
-          <TextInput onChangeText={handleChangeTitle} value={reminder.title} style={styles.modalFormInput} />
+          <TextInput onChangeText={handleChangeTitle} value={newReminder?.title} style={styles.modalFormInput} />
         </View>
 
         <View style={styles.modalFormGroup}>
           <Text style={styles.modalFormLabel}>Description</Text>
-          <TextInput onChangeText={handleChangeDesc} value={reminder.description} style={styles.modalFormInput} />
+          <TextInput onChangeText={handleChangeDesc} value={newReminder?.description} style={styles.modalFormInput} />
         </View>
 
         <View style={styles.modalFormGroup}>
@@ -55,9 +71,9 @@ const AddReminderModal = ({
             </View>
           </TouchableWithoutFeedback>
 
-          <TouchableWithoutFeedback onPress={handleAddReminder}>
+          <TouchableWithoutFeedback onPress={handleEditReminder}>
             <View style={[styles.modalFormAction, styles.primaryButton, { marginLeft: 6 }]}>
-              <Text style={styles.modalFormActionText}>Add</Text>
+              <Text style={styles.modalFormActionText}>Save</Text>
             </View>
           </TouchableWithoutFeedback>
         </View>
@@ -66,4 +82,4 @@ const AddReminderModal = ({
   )
 }
 
-export default AddReminderModal
+export default EditReminderModal

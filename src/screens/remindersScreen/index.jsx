@@ -1,35 +1,52 @@
 import React, { useState, useRef } from 'react'
 import { View } from 'react-native'
 import uuid from 'react-native-uuid'
-import { Header, AddItemButton, AddReminderModal, RemindersList } from '../../components'
+import { Header, AddItemButton, AddReminderModal, RemindersList, EditReminderModal } from '../../components'
+import { useDateTimePicker } from '../../hooks'
 import { styles } from './styles'
 
+import { remindersMock } from '../../data'
+
 const RemindersScreen = () => {
-  const [reminders, setReminders] = useState([])
+  const [reminders, setReminders] = useState(remindersMock)
   const [reminder, setReminder] = useState({
     id: '',
     title: '',
     description: '',
-    time: '',
+    time: new Date(),
     notifications: true
   })
+  const [reminderToEdit, setReminderToEdit] = useState(null)
   const [error, setError] = useState(null)
 
-  const [modalVisible, setModalVisible] = useState(false)
+  const triggerEditReminder = reminder => {
+    setReminderToEdit(reminder)
+    setEditModalVisible(true)
+  }
+
+  const [addModalVisible, setAddModalVisible] = useState(false)
+  const [editModalVisible, setEditModalVisible] = useState(false)
+
+  const { time, handleChangeTime } = useDateTimePicker()
 
   const handleChangeTitle = value => setReminder({ ...reminder, title: value })
   const handleChangeDesc = value => setReminder({ ...reminder, description: value })
-  const handleChangeTime = value => setReminder({ ...reminder, time: value })
 
-  const handleCancel = () => {
-    setModalVisible(!modalVisible)
+  const handleCancelAdd = () => {
+    setAddModalVisible(false)
     setReminder({
       id: '',
       title: '',
       description: '',
-      time: ''
+      time: new Date(),
+      notifications: true
     })
   }
+  const handleCancelEdit = () => {
+    setEditModalVisible(false)
+    setReminderToEdit(null)
+  }
+
   const handleAddReminder = () => {
     if (reminder.title === '' || reminder.description === '') {
       setError('Please fill all fields')
@@ -39,8 +56,8 @@ const RemindersScreen = () => {
       return
     }
 
-    setReminders([...reminders, { ...reminder, notifications: true, id: uuid.v4() }])
-    setModalVisible(!modalVisible)
+    setReminders([...reminders, { ...reminder, time, notifications: true, id: uuid.v4() }])
+    setAddModalVisible(false)
     setReminder({
       id: '',
       title: '',
@@ -63,15 +80,16 @@ const RemindersScreen = () => {
     setReminders(newReminders)
   }
   const handleEdit = (id, data) => {
-    console.warn(id, data)
-    return
     const newReminders = reminders.map(reminder => {
       if (reminder.id === id) {
-        reminder = data
+        reminder.title = data.title
+        reminder.description = data.description
+        reminder.time = data.time
       }
       return reminder
     })
     setReminders(newReminders)
+    setEditModalVisible(false)
   }
   const handleDelete = id => {
     const newReminders = reminders.filter(reminder => reminder.id !== id)
@@ -87,22 +105,30 @@ const RemindersScreen = () => {
       <RemindersList
         reminders={reminders}
         flatListRef={flatListRef}
-        handleEdit={handleEdit}
+        triggerEditReminder={triggerEditReminder}
         handleDelete={handleDelete}
         handleNotifications={handleNotifications}
       />
 
-      <AddItemButton modalVisible={modalVisible} setModalVisible={setModalVisible} />
+      <AddItemButton modalVisible={addModalVisible} setModalVisible={setAddModalVisible} />
 
       <AddReminderModal
-        open={modalVisible}
+        open={addModalVisible}
         reminder={reminder}
+        time={time}
         handleChangeTitle={handleChangeTitle}
         handleChangeDesc={handleChangeDesc}
         handleChangeTime={handleChangeTime}
         error={error}
-        handleCancel={handleCancel}
+        handleCancel={handleCancelAdd}
         handleAddReminder={handleAddReminder}
+      />
+
+      <EditReminderModal
+        open={editModalVisible}
+        reminder={reminderToEdit}
+        handleCancel={handleCancelEdit}
+        handleEdit={handleEdit}
       />
     </View>
   )

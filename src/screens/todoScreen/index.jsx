@@ -5,6 +5,8 @@ import { AddTaskModal, Header, AddItemButton, TasksList, EditTaskModal } from '.
 import { useDropdown } from '../../hooks'
 import { styles } from './styles'
 
+import { tasksMock } from '../../data'
+
 const dropdownItems = [
   { label: 'Critical', value: 'critical' },
   { label: 'High', value: 'high' },
@@ -13,7 +15,7 @@ const dropdownItems = [
 ]
 
 const TodoScreen = () => {
-  const [tasks, setTasks] = useState([])
+  const [tasks, setTasks] = useState(tasksMock)
   const [task, setTask] = useState({
     id: '',
     title: '',

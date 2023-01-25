@@ -3,11 +3,11 @@ import { View, Text, FlatList, Image } from 'react-native'
 import ReminderCard from '../reminderCard'
 import { styles } from './styles'
 
-const RemindersList = ({ reminders, flatListRef, handleEdit, handleDelete, handleNotifications }) => {
+const RemindersList = ({ reminders, flatListRef, triggerEditReminder, handleDelete, handleNotifications }) => {
   const renderItem = ({ item }) => (
     <ReminderCard
       item={item}
-      handleEdit={handleEdit}
+      triggerEditReminder={triggerEditReminder}
       handleDelete={handleDelete}
       handleNotifications={handleNotifications}
     />

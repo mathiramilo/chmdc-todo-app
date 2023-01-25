@@ -2,12 +2,12 @@ import React from 'react'
 import { View, Text, Image, TouchableWithoutFeedback } from 'react-native'
 import { styles } from './styles'
 
-const ReminderCard = ({ item, handleEdit, handleDelete, handleNotifications }) => {
+const ReminderCard = ({ item, triggerEditReminder, handleDelete, handleNotifications }) => {
   return (
     <View style={styles.itemCard}>
       <View style={styles.cardHeader}>
         <Text style={styles.cardTitle}>{item.title}</Text>
-        <Text style={styles.cardTime}>{item.time}</Text>
+        <Text style={styles.cardTime}>{item.time.toLocaleTimeString().substring(0, 5)}</Text>
       </View>
 
       <Text style={styles.cardDescription}>{item.description}</Text>
@@ -28,7 +28,7 @@ const ReminderCard = ({ item, handleEdit, handleDelete, handleNotifications }) =
         </TouchableWithoutFeedback>
 
         <View style={styles.cardActions}>
-          <TouchableWithoutFeedback onPress={() => handleEdit(item.id)}>
+          <TouchableWithoutFeedback onPress={() => triggerEditReminder(item)}>
             <View style={styles.cardActionButton}>
               <Image style={styles.cardActionIcon} source={require('../../assets/edit.png')} />
             </View>
