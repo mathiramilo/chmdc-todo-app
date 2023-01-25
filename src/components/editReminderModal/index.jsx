@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, TouchableWithoutFeedback, TextInput } from 'react-native'
+import { View, Text, TouchableWithoutFeedback, TextInput, Alert } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import CustomModal from '../customModal'
-import { styles } from './styles'
 import { useDateTimePicker } from '../../hooks'
+import { styles } from './styles'
 
 const EditReminderModal = ({ open, reminder, handleCancel, handleEdit }) => {
   const [newReminder, setNewReminder] = useState(reminder)
-  const [error, setError] = useState('')
 
   const { time, setTime, handleChangeTime } = useDateTimePicker()
 
@@ -21,10 +20,9 @@ const EditReminderModal = ({ open, reminder, handleCancel, handleEdit }) => {
 
   const handleEditReminder = () => {
     if (newReminder?.title === '' || newReminder?.description === '') {
-      setError('Please fill all fields')
-      setTimeout(() => {
-        setError(null)
-      }, 3000)
+      Alert.alert('Please fill all fields', 'Title, description and time are required to edit a reminder', [
+        { text: 'OK', style: 'destructive' }
+      ])
       return
     }
 
@@ -57,12 +55,6 @@ const EditReminderModal = ({ open, reminder, handleCancel, handleEdit }) => {
             style={styles.timePicker}
           />
         </View>
-
-        {error && (
-          <View style={styles.modalFormError}>
-            <Text style={styles.modalFormErrorText}>{error}</Text>
-          </View>
-        )}
 
         <View style={styles.modalFormActions}>
           <TouchableWithoutFeedback onPress={handleCancel}>

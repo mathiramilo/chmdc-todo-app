@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { View } from 'react-native'
+import { View, Alert } from 'react-native'
 import uuid from 'react-native-uuid'
 import { AddTaskModal, Header, AddItemButton, TasksList, EditTaskModal } from '../../components'
 import { useDropdown } from '../../hooks'
@@ -24,7 +24,6 @@ const TodoScreen = () => {
     done: false
   })
   const [taskToEdit, setTaskToEdit] = useState(null)
-  const [error, setError] = useState(null)
 
   const triggerEditTask = task => {
     setTaskToEdit(task)
@@ -58,10 +57,9 @@ const TodoScreen = () => {
 
   const handleAddTask = () => {
     if (task.title === '' || task.description === '' || dropdownValue === null) {
-      setError('Please fill all fields')
-      setTimeout(() => {
-        setError(null)
-      }, 3000)
+      Alert.alert('Please fill all fields', 'Title, description and time are required to create a task', [
+        { text: 'OK', style: 'destructive' }
+      ])
       return
     }
 
@@ -75,7 +73,6 @@ const TodoScreen = () => {
       done: false
     })
     setDropdownValue(null)
-    setError(null)
 
     if (tasks.length > 1) flatListRef.current.scrollToEnd()
   }
@@ -134,7 +131,6 @@ const TodoScreen = () => {
           setDropdownValue={setDropdownValue}
           items={items}
           setItems={setItems}
-          error={error}
           handleCancel={handleCancelAdd}
           handleAddTask={handleAddTask}
         />

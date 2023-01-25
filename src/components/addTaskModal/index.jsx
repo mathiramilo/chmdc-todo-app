@@ -8,7 +8,6 @@ const AddTaskModal = ({
   handleChangeTitle,
   handleChangeDesc,
   task,
-  error,
   handleCancel,
   handleAddTask,
   dropdownOpen,
@@ -50,12 +49,6 @@ const AddTaskModal = ({
             placeholderStyle={styles.dropdownPlaceholder}
           />
         </View>
-
-        {error && (
-          <View style={styles.modalFormError}>
-            <Text style={styles.modalFormErrorText}>{error}</Text>
-          </View>
-        )}
 
         <View style={styles.modalFormActions}>
           <TouchableWithoutFeedback onPress={handleCancel}>

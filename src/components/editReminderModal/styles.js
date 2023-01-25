@@ -32,18 +32,6 @@ export const styles = StyleSheet.create({
     height: 90,
     width: '100%'
   },
-  modalFormError: {
-    marginBottom: 24,
-    backgroundColor: colors.red,
-    padding: 12,
-    borderRadius: 12,
-    zIndex: -1
-  },
-  modalFormErrorText: {
-    color: colors.white,
-    fontFamily: fonts.semiBold,
-    fontSize: fonts.xs
-  },
   modalFormActions: {
     flexDirection: 'row',
     justifyContent: 'center',

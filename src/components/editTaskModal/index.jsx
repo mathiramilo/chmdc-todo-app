@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, TouchableWithoutFeedback, TextInput } from 'react-native'
+import { View, Text, TouchableWithoutFeedback, TextInput, Alert } from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker'
 import CustomModal from '../customModal'
-import { styles } from './styles'
 import { useDropdown } from '../../hooks'
+import { styles } from './styles'
 
 const dropdownItems = [
   { label: 'Critical', value: 'critical' },
@@ -14,7 +14,6 @@ const dropdownItems = [
 
 const EditTaskModal = ({ open, task, handleCancel, handleEdit }) => {
   const [newTask, setNewTask] = useState(task)
-  const [error, setError] = useState('')
 
   const { dropdownOpen, setIsDropdownOpen, dropdownValue, setDropdownValue, items, setItems } =
     useDropdown(dropdownItems)
@@ -29,10 +28,9 @@ const EditTaskModal = ({ open, task, handleCancel, handleEdit }) => {
 
   const handleEditTask = () => {
     if (newTask?.title === '' || newTask?.description === '' || dropdownValue === null) {
-      setError('Please fill all fields')
-      setTimeout(() => {
-        setError(null)
-      }, 3000)
+      Alert.alert('Please fill all fields', 'Title, description and time are required to edit a task', [
+        { text: 'OK', style: 'destructive' }
+      ])
       return
     }
 
@@ -71,12 +69,6 @@ const EditTaskModal = ({ open, task, handleCancel, handleEdit }) => {
             placeholderStyle={styles.dropdownPlaceholder}
           />
         </View>
-
-        {error && (
-          <View style={styles.modalFormError}>
-            <Text style={styles.modalFormErrorText}>{error}</Text>
-          </View>
-        )}
 
         <View style={styles.modalFormActions}>
           <TouchableWithoutFeedback onPress={handleCancel}>

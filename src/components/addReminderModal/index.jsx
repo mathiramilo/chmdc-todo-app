@@ -6,7 +6,6 @@ import { styles } from './styles'
 
 const AddReminderModal = ({
   open,
-  error,
   reminder,
   time,
   handleChangeTitle,
@@ -41,12 +40,6 @@ const AddReminderModal = ({
             style={styles.timePicker}
           />
         </View>
-
-        {error && (
-          <View style={styles.modalFormError}>
-            <Text style={styles.modalFormErrorText}>{error}</Text>
-          </View>
-        )}
 
         <View style={styles.modalFormActions}>
           <TouchableWithoutFeedback onPress={handleCancel}>

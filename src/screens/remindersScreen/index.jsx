@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { View } from 'react-native'
+import { Alert, View } from 'react-native'
 import uuid from 'react-native-uuid'
 import { Header, AddItemButton, AddReminderModal, RemindersList, EditReminderModal } from '../../components'
 import { useDateTimePicker } from '../../hooks'
@@ -17,7 +17,6 @@ const RemindersScreen = () => {
     notifications: true
   })
   const [reminderToEdit, setReminderToEdit] = useState(null)
-  const [error, setError] = useState(null)
 
   const triggerEditReminder = reminder => {
     setReminderToEdit(reminder)
@@ -49,10 +48,9 @@ const RemindersScreen = () => {
 
   const handleAddReminder = () => {
     if (reminder.title === '' || reminder.description === '') {
-      setError('Please fill all fields')
-      setTimeout(() => {
-        setError(null)
-      }, 3000)
+      Alert.alert('Please fill all fields', 'Title, description and time are required to create a reminder', [
+        { text: 'OK', style: 'destructive' }
+      ])
       return
     }
 
@@ -65,7 +63,6 @@ const RemindersScreen = () => {
       time: '',
       notifications: true
     })
-    setError(null)
 
     if (reminder.length > 1) flatListRef.current.scrollToEnd()
   }
@@ -119,7 +116,6 @@ const RemindersScreen = () => {
         handleChangeTitle={handleChangeTitle}
         handleChangeDesc={handleChangeDesc}
         handleChangeTime={handleChangeTime}
-        error={error}
         handleCancel={handleCancelAdd}
         handleAddReminder={handleAddReminder}
       />
