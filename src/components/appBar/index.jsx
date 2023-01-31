@@ -1,11 +1,11 @@
-import { styles } from './styles'
 import { TouchableWithoutFeedback, Text, View, Image } from 'react-native'
 import { colors } from '../../theme'
+import { styles } from './styles'
 
-const AppBar = ({ screen, setScreen }) => {
+const AppBar = ({ navigator }) => {
   return (
     <View style={styles.appBar}>
-      <TouchableWithoutFeedback onPress={() => setScreen('todos')}>
+      <TouchableWithoutFeedback onPress={() => navigator.navigate('Todos')}>
         <View style={styles.appBarButton}>
           <Image
             style={[styles.buttonIcon, screen === 'todos' && { tintColor: colors.primary }]}

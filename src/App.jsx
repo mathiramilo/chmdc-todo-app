@@ -1,9 +1,8 @@
 import { StatusBar } from 'expo-status-bar'
 import { useFonts } from 'expo-font'
-import React, { useState } from 'react'
+import React from 'react'
 import { View, ActivityIndicator, StyleSheet } from 'react-native'
-import { RemindersScreen, SettingsScreen, TodoScreen } from './screens'
-import { AppBar } from './components'
+import AppNavigator from './navigation'
 import { colors } from './theme'
 
 const App = () => {
@@ -19,21 +18,6 @@ const App = () => {
     'Raleway-Thin': require('../assets/fonts/Raleway-Thin.ttf')
   })
 
-  const [screen, setScreen] = useState('todos')
-
-  const Screen = () => {
-    switch (screen) {
-      case 'todos':
-        return <TodoScreen />
-      case 'reminders':
-        return <RemindersScreen />
-      case 'settings':
-        return <SettingsScreen />
-      default:
-        return <TodoScreen />
-    }
-  }
-
   if (!loaded) {
     return (
       <>
@@ -48,9 +32,7 @@ const App = () => {
   return (
     <>
       <StatusBar style="dark" />
-
-      <Screen />
-      <AppBar screen={screen} setScreen={setScreen} />
+      <AppNavigator />
     </>
   )
 }
