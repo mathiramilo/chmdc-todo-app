@@ -89,6 +89,12 @@ const RemindersScreen = () => {
     setEditModalVisible(false)
   }
   const handleDelete = id => {
+    return Alert.alert('Delete reminder', 'Are you sure you want to delete this reminder?', [
+      { text: 'Cancel', style: 'cancel' },
+      { text: 'Delete', style: 'destructive', onPress: () => deleteReminder(id) }
+    ])
+  }
+  const deleteReminder = id => {
     const newReminders = reminders.filter(reminder => reminder.id !== id)
     setReminders(newReminders)
   }

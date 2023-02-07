@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, TouchableWithoutFeedback, TextInput } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
+import { colors } from '../../theme'
 import CustomModal from '../customModal'
 import { styles } from './styles'
 
@@ -38,6 +39,7 @@ const AddReminderModal = ({
             onChange={handleChangeTime}
             display="spinner"
             style={styles.timePicker}
+            textColor={colors.text}
           />
         </View>
 

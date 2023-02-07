@@ -99,6 +99,12 @@ const TodoScreen = () => {
     setEditModalVisible(false)
   }
   const handleDelete = id => {
+    return Alert.alert('Delete task', 'Are you sure you want to delete this task?', [
+      { text: 'Cancel', style: 'cancel' },
+      { text: 'Delete', style: 'destructive', onPress: () => deleteTask(id) }
+    ])
+  }
+  const deleteTask = id => {
     const newTasks = tasks.filter(task => task.id !== id)
     setTasks(newTasks)
   }
