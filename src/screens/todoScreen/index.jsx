@@ -1,11 +1,13 @@
 import React, { useState, useRef } from 'react'
 import { View, Alert } from 'react-native'
 import uuid from 'react-native-uuid'
+
+import { useSelector, useDispatch } from 'react-redux'
+import { addTask, toggleDone, editTask, removeTask } from '../../store/actions/tasks.actions'
+
 import { AddTaskModal, Header, AddItemButton, TasksList, EditTaskModal } from '../../components'
 import { useDropdown } from '../../hooks'
 import { styles } from './styles'
-
-import { tasksMock } from '../../data'
 
 const dropdownItems = [
   { label: 'Critical', value: 'critical' },
@@ -15,7 +17,9 @@ const dropdownItems = [
 ]
 
 const TodoScreen = () => {
-  const [tasks, setTasks] = useState(tasksMock)
+  const dispatch = useDispatch()
+  const tasks = useSelector(state => state.tasks.items)
+
   const [task, setTask] = useState({
     id: '',
     title: '',
@@ -63,7 +67,8 @@ const TodoScreen = () => {
       return
     }
 
-    setTasks([...tasks, { ...task, priority: dropdownValue, id: uuid.v4() }])
+    dispatch(addTask({ ...task, priority: dropdownValue, id: uuid.v4() }))
+
     setAddModalVisible(false)
     setTask({
       id: '',
@@ -78,24 +83,10 @@ const TodoScreen = () => {
   }
 
   const handleCheck = id => {
-    const newTasks = tasks.map(task => {
-      if (task.id === id) {
-        task.done = !task.done
-      }
-      return task
-    })
-    setTasks(newTasks)
+    dispatch(toggleDone(id))
   }
   const handleEdit = (id, data) => {
-    const newTasks = tasks.map(task => {
-      if (task.id === id) {
-        task.title = data.title
-        task.description = data.description
-        task.priority = data.priority
-      }
-      return task
-    })
-    setTasks(newTasks)
+    dispatch(editTask(id, data))
     setEditModalVisible(false)
   }
   const handleDelete = id => {
@@ -105,8 +96,7 @@ const TodoScreen = () => {
     ])
   }
   const deleteTask = id => {
-    const newTasks = tasks.filter(task => task.id !== id)
-    setTasks(newTasks)
+    dispatch(removeTask(id))
   }
 
   const flatListRef = useRef()

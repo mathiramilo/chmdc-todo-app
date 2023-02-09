@@ -2,6 +2,10 @@ import { StatusBar } from 'expo-status-bar'
 import { useFonts } from 'expo-font'
 import React from 'react'
 import { View, ActivityIndicator, StyleSheet } from 'react-native'
+
+import { Provider } from 'react-redux'
+import store from './store'
+
 import AppNavigator from './navigation'
 import { colors } from './theme'
 
@@ -32,7 +36,9 @@ const App = () => {
   return (
     <>
       <StatusBar style="dark" />
-      <AppNavigator />
+      <Provider store={store}>
+        <AppNavigator />
+      </Provider>
     </>
   )
 }

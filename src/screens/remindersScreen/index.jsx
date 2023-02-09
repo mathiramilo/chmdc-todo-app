@@ -1,14 +1,18 @@
 import React, { useState, useRef } from 'react'
 import { Alert, View } from 'react-native'
 import uuid from 'react-native-uuid'
-import { Header, AddItemButton, AddReminderModal, RemindersList, EditReminderModal } from '../../components'
+
+import { useSelector, useDispatch } from 'react-redux'
+import { addReminder, toggleNotifications, editReminder, removeReminder } from '../../store/actions/reminders.actions'
+
 import { useDateTimePicker } from '../../hooks'
+import { Header, AddItemButton, AddReminderModal, RemindersList, EditReminderModal } from '../../components'
 import { styles } from './styles'
 
-import { remindersMock } from '../../data'
-
 const RemindersScreen = () => {
-  const [reminders, setReminders] = useState(remindersMock)
+  const dispatch = useDispatch()
+  const reminders = useSelector(state => state.reminders.items)
+
   const [reminder, setReminder] = useState({
     id: '',
     title: '',
@@ -54,7 +58,8 @@ const RemindersScreen = () => {
       return
     }
 
-    setReminders([...reminders, { ...reminder, time, notifications: true, id: uuid.v4() }])
+    dispatch(addReminder({ ...reminder, time, notifications: true, id: uuid.v4() }))
+
     setAddModalVisible(false)
     setReminder({
       id: '',
@@ -68,24 +73,10 @@ const RemindersScreen = () => {
   }
 
   const handleNotifications = id => {
-    const newReminders = reminders.map(reminder => {
-      if (reminder.id === id) {
-        reminder.notifications = !reminder.notifications
-      }
-      return reminder
-    })
-    setReminders(newReminders)
+    dispatch(toggleNotifications(id))
   }
   const handleEdit = (id, data) => {
-    const newReminders = reminders.map(reminder => {
-      if (reminder.id === id) {
-        reminder.title = data.title
-        reminder.description = data.description
-        reminder.time = data.time
-      }
-      return reminder
-    })
-    setReminders(newReminders)
+    dispatch(editReminder(id, data))
     setEditModalVisible(false)
   }
   const handleDelete = id => {
@@ -95,8 +86,7 @@ const RemindersScreen = () => {
     ])
   }
   const deleteReminder = id => {
-    const newReminders = reminders.filter(reminder => reminder.id !== id)
-    setReminders(newReminders)
+    dispatch(removeReminder(id))
   }
 
   const flatListRef = useRef()
