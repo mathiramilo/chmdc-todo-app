@@ -1,4 +1,5 @@
 export const tasksTypes = {
+  GET_TASKS: 'GET_TASKS',
   ADD_TASK: 'ADD_TASK',
   TOGGLE_DONE: 'TOGGLE_DONE',
   EDIT_TASK: 'EDIT_TASK',

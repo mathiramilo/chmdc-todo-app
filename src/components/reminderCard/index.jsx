@@ -7,7 +7,7 @@ const ReminderCard = ({ item, triggerEditReminder, handleDelete, handleNotificat
     <View style={styles.itemCard}>
       <View style={styles.cardHeader}>
         <Text style={styles.cardTitle}>{item.title}</Text>
-        <Text style={styles.cardTime}>{item.time.toLocaleTimeString().substring(0, 5)}</Text>
+        <Text style={styles.cardTime}>{new Date(item.time).toLocaleTimeString().substring(0, 5)}</Text>
       </View>
 
       <Text style={styles.cardDescription}>{item.description}</Text>

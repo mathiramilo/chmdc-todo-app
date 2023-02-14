@@ -1,14 +1,18 @@
-import { remindersMock } from '../../data'
 import { remindersTypes } from '../types'
 
-const { ADD_REMINDER, TOGGLE_NOTIFICATIONS, EDIT_REMINDER, REMOVE_REMINDER } = remindersTypes
+const { GET_REMINDERS, ADD_REMINDER, TOGGLE_NOTIFICATIONS, EDIT_REMINDER, REMOVE_REMINDER } = remindersTypes
 
 const initialState = {
-  items: remindersMock
+  items: []
 }
 
 const remindersReducer = (state = initialState, action) => {
   switch (action.type) {
+    case GET_REMINDERS:
+      return {
+        ...state,
+        items: action.payload
+      }
     case ADD_REMINDER:
       return {
         ...state,

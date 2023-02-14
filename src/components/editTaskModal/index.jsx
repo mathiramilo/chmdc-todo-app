@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, TouchableWithoutFeedback, TextInput, Alert } from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker'
-import CustomModal from '../customModal'
+
 import { useDropdown } from '../../hooks'
+import CustomModal from '../customModal'
+
 import { styles } from './styles'
 
 const dropdownItems = [

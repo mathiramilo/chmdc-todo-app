@@ -1,14 +1,18 @@
-import { tasksMock } from '../../data'
 import { tasksTypes } from '../types'
 
-const { ADD_TASK, TOGGLE_DONE, EDIT_TASK, REMOVE_TASK } = tasksTypes
+const { GET_TASKS, ADD_TASK, TOGGLE_DONE, EDIT_TASK, REMOVE_TASK } = tasksTypes
 
 const initialState = {
-  items: tasksMock
+  items: []
 }
 
 const tasksReducer = (state = initialState, action) => {
   switch (action.type) {
+    case GET_TASKS:
+      return {
+        ...state,
+        items: action.payload
+      }
     case ADD_TASK:
       return {
         ...state,
