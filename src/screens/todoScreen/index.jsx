@@ -1,6 +1,7 @@
 import React, { useState, useRef, useCallback } from 'react'
 import { View, Alert } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
+import uuid from 'react-native-uuid'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { getTasks, addTask, toggleDone, editTask, removeTask } from '../../store/actions/tasks.actions'
@@ -66,7 +67,7 @@ const TodoScreen = () => {
       return
     }
 
-    dispatch(addTask({ ...task, priority: dropdownValue }))
+    dispatch(addTask({ ...task, priority: dropdownValue, id: uuid.v4() }))
 
     setAddModalVisible(false)
     setTask({
@@ -97,11 +98,11 @@ const TodoScreen = () => {
     dispatch(removeTask(id))
   }
 
-  useFocusEffect(
-    useCallback(() => {
-      dispatch(getTasks())
-    }, [dispatch])
-  )
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     dispatch(getTasks())
+  //   }, [dispatch])
+  // )
 
   const flatListRef = useRef()
 

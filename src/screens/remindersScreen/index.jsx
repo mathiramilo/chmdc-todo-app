@@ -1,10 +1,10 @@
 import React, { useState, useRef, useCallback } from 'react'
 import { Alert, View } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
+import uuid from 'react-native-uuid'
 
 import { useSelector, useDispatch } from 'react-redux'
 import {
-  getReminders,
   addReminder,
   toggleNotifications,
   editReminder,
@@ -63,7 +63,7 @@ const RemindersScreen = () => {
       return
     }
 
-    dispatch(addReminder({ ...reminder, time, notifications: true }))
+    dispatch(addReminder({ ...reminder, time, notifications: true, id: uuid.v4() }))
 
     setAddModalVisible(false)
     setReminder({
@@ -93,11 +93,11 @@ const RemindersScreen = () => {
     dispatch(removeReminder(id))
   }
 
-  useFocusEffect(
-    useCallback(() => {
-      dispatch(getReminders())
-    }, [dispatch])
-  )
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     dispatch(getReminders())
+  //   }, [dispatch])
+  // )
 
   const flatListRef = useRef()
 
