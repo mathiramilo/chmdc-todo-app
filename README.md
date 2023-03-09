@@ -2,7 +2,7 @@
 
 React Native and Expo Todo App for the Challenges of Coderhouse Mobile Development Course.
 
-![Design Photo]()
+![chmdc-todoapp-design](https://user-images.githubusercontent.com/42822912/223900474-92ec1d71-1145-4402-bb5d-7d7ac142f86f.jpg)
 
 ## Features
 
@@ -13,6 +13,8 @@ React Native and Expo Todo App for the Challenges of Coderhouse Mobile Developme
 5. **`Turn Off/On Reminders Notifications`** (Users can turn off or on reminders notifications)
 
 ## App Demo
+
+https://user-images.githubusercontent.com/42822912/223900496-52e90ae3-8402-4f7b-811f-30cfd33fbf5e.mov
 
 ## App Technical Information
 
