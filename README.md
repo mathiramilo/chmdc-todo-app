@@ -26,6 +26,10 @@ Global application state is managed with **Redux**.
 
 This is responsible for managing tasks and reminders.
 
+### Persistance
+
+Tasks and reminders are stored into a **SQLite** database in the device.
+
 ## Personal Data
 
 - Visit my [**Github**](https://github.com/mathiramilo) profile to see more amazing projects.
