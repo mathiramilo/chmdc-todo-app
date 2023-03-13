@@ -1,15 +1,8 @@
-import React, { useState, useRef, useCallback } from 'react'
+import React, { useState, useRef } from 'react'
 import { Alert, View } from 'react-native'
-import { useFocusEffect } from '@react-navigation/native'
-import uuid from 'react-native-uuid'
 
 import { useSelector, useDispatch } from 'react-redux'
-import {
-  addReminder,
-  toggleNotifications,
-  editReminder,
-  removeReminder
-} from '../../store/actions/reminders.actions'
+import { addReminder, toggleNotifications, editReminder, removeReminder } from '../../store/actions/reminders.actions'
 
 import { useDateTimePicker } from '../../hooks'
 import { Header, AddItemButton, AddReminderModal, RemindersList, EditReminderModal } from '../../components'
@@ -63,7 +56,7 @@ const RemindersScreen = () => {
       return
     }
 
-    dispatch(addReminder({ ...reminder, time, notifications: true, id: uuid.v4() }))
+    dispatch(addReminder({ ...reminder, time: `${time}`, notifications: true }))
 
     setAddModalVisible(false)
     setReminder({
@@ -92,12 +85,6 @@ const RemindersScreen = () => {
   const deleteReminder = id => {
     dispatch(removeReminder(id))
   }
-
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     dispatch(getReminders())
-  //   }, [dispatch])
-  // )
 
   const flatListRef = useRef()
 
